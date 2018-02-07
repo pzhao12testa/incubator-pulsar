@@ -13,7 +13,12 @@ cache:
   - $HOME/pulsar-dep
   - $HOME/apache-maven-3.5.0
 deploy:
-- script: mvn install deploy -Prelease -DskipTests --settings .travis/settings.xml
+- script: mvn deploy -DskipTests --settings .travis/settings.xml
+  true:
+    tags: false
+  skip_cleanup: true
+  provider: script
+- script: mvn install deploy -Papache-release -DskipTests --settings .travis/settings.xml
   true:
     repo: apache/incubator-pulsar
     tags: true
